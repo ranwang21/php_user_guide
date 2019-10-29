@@ -5,7 +5,7 @@ const PRODUCT = 'Nos produits';
 const ABOUT = 'À propos';
 const IDEA = 'Idées cadeaux';
 
-$arr = [HOME, PRODUCT, ABOUT, IDEA];
+$linkNames = [HOME, PRODUCT, ABOUT, IDEA];
 
 // Le nom de l'item de menu qui doit être actif
 $selected = ABOUT;
@@ -39,7 +39,7 @@ $selected = ABOUT;
     <nav id="navigation">
         <ul>
             <?php
-                foreach ($arr as $key => $item) {
+                foreach ($linkNames as $item) {
                     if ($item == $selected) {
                         echo '<li class="menu-item selected">'.$item.'</li>';
                     } else {
