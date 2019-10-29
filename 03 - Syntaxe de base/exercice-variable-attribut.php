@@ -40,7 +40,7 @@ $selected = ABOUT;
         <ul>
             <?php
                 foreach ($arr as $key => $item) {
-                    if ($key == 2) {
+                    if ($item == $selected) {
                         echo '<li class="menu-item selected">'.$item.'</li>';
                     } else {
                         echo '<li class="menu-item">'.$item.'</li>';
