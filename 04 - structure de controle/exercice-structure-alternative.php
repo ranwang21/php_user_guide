@@ -23,7 +23,10 @@ const PRODUCTS = array('Produit A' => 12, 'Produit B' => 23, 'Produit C' => 2);
 
 <body>
     <h1>Liste de produits</h1>
-
+    <?php
+        if (count(PRODUCTS) == 0) {
+            echo '<p>Votre panier contient aucun produit.</p>';
+        } else { ?>
     <p>Votre panier contient <?php
         echo count(PRODUCTS);
     ?> produits</p>
@@ -33,25 +36,23 @@ const PRODUCTS = array('Produit A' => 12, 'Produit B' => 23, 'Produit C' => 2);
             <th>Prix</th>
         </tr>
         <?php
-            foreach (PRODUCTS as $name => $price) {
-                echo '<tr>';
-                echo '<td>';
-                echo $name;
-                echo '</td>';
-                echo '<td>';
-                echo $price;
-                echo '</td>';
-                echo '</tr>';
-            }
+        foreach (PRODUCTS as $name => $price) {
+            echo '<tr>';
+            echo '<td>';
+            echo $name;
+            echo '</td>';
+            echo '<td>';
+            echo $price;
+            echo '</td>';
+            echo '</tr>';
+        }
         ?>
 
     </table>
 
-    <?php
-        if (count(PRODUCTS) == 0) {
-            echo '<p>Votre panier contient aucun produit.</p>';
-        }
-    ?>
+    <?php } ?>
+
+
 
     <p>Consultez la liste des spéciaux de la semaine</p>
 </body>
