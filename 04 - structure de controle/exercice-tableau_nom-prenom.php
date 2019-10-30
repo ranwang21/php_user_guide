@@ -82,7 +82,7 @@ const MINIMUM_EXPERIENCE = 5;
                         // switch row background color based on user age
                         if ($user_age < AGE_REFERENCE) {
                             echo "<tr class='age-under'>";
-                        } elseif ($user_age = AGE_REFERENCE) {
+                        } elseif ($user_age === AGE_REFERENCE) {
                             echo "<tr class='age-reference'>";
                         } else {
                             echo "<tr class='age-over'>";
@@ -94,12 +94,10 @@ const MINIMUM_EXPERIENCE = 5;
                                 echo $user_detail;
                             } else {
                                 foreach ($user_detail as $job => $years) {
-                                    if ($years > AGE_REFERENCE) {
-                                        echo "<span class='age-over'>";
-                                    } elseif ($years = AGE_REFERENCE) {
-                                        echo "<span class='age-reference'>";
+                                    if ($years > MINIMUM_EXPERIENCE) {
+                                        echo "<span class='experience-valid'>";
                                     } else {
-                                        echo "<span class='age-under'>";
+                                        echo "<span class='experience-invalid'>";
                                     }
 
                                     echo $job.' : '.$years.' ans<br>';

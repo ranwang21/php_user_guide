@@ -61,6 +61,7 @@ $previsions = array(
                         echo '<span>'.$date.'</span>';
                         echo "<img src='./images/".$item[FILENAME_K]."' alt='".$item[ALT_K]."' />";
                         echo $item[TEMPS_K];
+                        echo '</div>';
                     }
                 ?>
             </table>
