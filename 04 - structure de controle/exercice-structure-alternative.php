@@ -51,6 +51,7 @@ const PRODUCTS = array('Produit A' => 12, 'Produit B' => 23, 'Produit C' => 2);
     </table>
 
     <?php } ?>
+    <?=date_timezone_get(); ?>
 
 
 

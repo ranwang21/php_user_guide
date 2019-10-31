@@ -75,6 +75,8 @@ const MINIMUM_EXPERIENCE = 5;
                 <th>Emplois</th>
             </tr>
 
+        </thead>
+        <tbody>
             <?php
                     foreach (USERS as $user) {
                         // get user age
@@ -109,10 +111,6 @@ const MINIMUM_EXPERIENCE = 5;
                         echo '</tr>';
                     }
                 ?>
-        </thead>
-
-        <tbody>
-
         </tbody>
 
         <tfoot>

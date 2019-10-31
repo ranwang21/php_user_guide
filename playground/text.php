@@ -1,0 +1,1 @@
+PHP string functions are cool, but the string concatenation is hell.Its very convenient to create a site with PHP, howeverIts very convenient to create a site with PHP, however
