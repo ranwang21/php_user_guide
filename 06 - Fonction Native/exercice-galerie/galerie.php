@@ -55,6 +55,9 @@ foreach ($imagesList as $filename) {
                             echo "<img src='./image/".$image."'"." class=d-block alt='alt' />";
                             echo '</div>';
                         }
+                        echo "<div class='carousel-item'>";
+                        echo "<img src='./image/".$image."'"." class=d-block alt='alt' />";
+                        echo '</div>';
                     }
                 ?>
 
