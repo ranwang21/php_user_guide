@@ -106,6 +106,7 @@ $formFields = [
     ],
 ];
 
+var_dump($_POST['selectMultiple']);
 // echo out attributes
 function writeAttributes($element)
 {
@@ -157,6 +158,9 @@ function showInput($field)
     if ($field['isValid']) {
         echo 'required />';
     }
+    if (!validate($field, $_POST[$field['id']])) {
+        echo 'error!';
+    }
     echo '</div>';
 }
 
@@ -181,7 +185,9 @@ function showSelectInput($field)
         }
     }
     echo '<'.$field['element'].'/>';
-
+    if (!validate($field, $_POST[$field['id']])) {
+        echo 'error!';
+    }
     echo '</div>';
 }
 
@@ -192,6 +198,9 @@ function showTextArea($field)
     echo "<label for='".$field['id']."'>".$field['label'].'</label>';
     echo '<'.$field['element']." class='form-control' id='".$field['id']."' name='".$field['id']."'>";
     echo '</'.$field['element'].'>';
+    if (!validate($field, $_POST[$field['id']])) {
+        echo 'error!';
+    }
     echo '</div>';
 }
 
@@ -199,6 +208,9 @@ function showTextArea($field)
 function showRadio($field)
 {
     echo '<label>'.$field['label'].': </label>';
+    if (!validate($field, $_POST[$field['id']])) {
+        echo 'error!';
+    }
     foreach (RADIOS as $radio) {
         echo "<div class='form-group'>";
         echo "<div class='form-check'>";
@@ -256,17 +268,33 @@ function showRadio($field)
 
             <!-- La contenue ci-dessous s'affiche seulement lorsque les données du formulaire sont valides -->
 
+            <?php
+            if ($method === 'POST') {
+                ?>
             <div class="alert alert-primary" role="alert">
                 Résultat de la soumission
             </div>
 
             <ul class="list-group">
-                <li class="list-group-item">
+                <?php
+                foreach ($formFields as $field) {
+                    echo "<li class='list-group-item'>";
+                    if (isset($_POST['id'])) {
+                        if (is_array($_POST['id'])) {
+                            foreach ($_POST['id'] as $value) {
+                                echo '
+                <li>'.$value.'</li>';
+                            }
+                        } else {
+                            echo $_POST[$field['id']];
+                        }
+                    }
 
-                    <!-- La valeur de chacun des champs du formulaire est affichée en utilisant des LI -->
-
-                </li>
+                    echo '</li>';
+                } ?>
             </ul>
+            <?php
+            } ?>
 
         </div>
 
