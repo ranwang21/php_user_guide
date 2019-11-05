@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+$action = '';
+$fruit = '';
+$numberOfApples = $numberOfPears = $numbreOfBananas = 0;
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 }
@@ -29,30 +33,14 @@ function deleteOne($fruit)
 
 function clearOne($fruit)
 {
-    if (isset($_SESSION[$fruit]) && intval($_SESSION[$fruit]) >= 1) {
-        $_SESSION[$fruit] = 0;
-    } else {
-        $_SESSION[$fruit] = 0;
-    }
+    $_SESSION[$fruit] = 0;
 }
 
 function clearSessions()
 {
-    if (isset($_SESSION['apple']) || isset($_SESSION['pear']) || isset($_SESSION['banana'])) {
-        session_destroy();
-    }
-}
-
-if (isset($_SESSION['apple'])) {
-    $numberOfApples = intval($_SESSION['apple']);
-}
-
-if (isset($_SESSION['pear'])) {
-    $numberOfPears = intval($_SESSION['pear']);
-}
-
-if (isset($_SESSION['banana'])) {
-    $numbreOfBananas = intval($_SESSION['banana']);
+    $_SESSION['apple'] = 0;
+    $_SESSION['pear'] = 0;
+    $_SESSION['banana'] = 0;
 }
 
 if (isset($action) && isset($fruit)) {
@@ -68,7 +56,20 @@ if (isset($action) && isset($fruit)) {
         break;
         case 'clearcart':
         clearSessions();
+        break;
     }
+}
+
+if (isset($_SESSION['apple'])) {
+    $numberOfApples = intval($_SESSION['apple']);
+}
+
+if (isset($_SESSION['pear'])) {
+    $numberOfPears = intval($_SESSION['pear']);
+}
+
+if (isset($_SESSION['banana'])) {
+    $numbreOfBananas = intval($_SESSION['banana']);
 }
 
 ?>
@@ -96,7 +97,7 @@ if (isset($action) && isset($fruit)) {
                 <td><a href="exercice-panier.php?action=add&fruit=apple">Une pomme</a></td>
                 <td><a href="exercice-panier.php?action=delete&fruit=apple">Une pomme</a></td>
                 <td><a href="exercice-panier.php?action=clear&fruit=apple">Toutes les pommes</a></td>
-                <td><?=isset($numberOfApples) ? $numberOfApples : 0; ?>
+                <td><?=$numberOfApples; ?>
                 </td>
                 </td>
             </tr>
@@ -104,18 +105,18 @@ if (isset($action) && isset($fruit)) {
                 <td><a href="exercice-panier.php?action=add&fruit=pear">Une poire</a></td>
                 <td><a href="exercice-panier.php?action=delete&fruit=pear">Une poire</a></td>
                 <td><a href="exercice-panier.php?action=clear&fruit=pear">Toutes les poires</a></td>
-                <td><?=isset($numberOfPears) ? $numberOfPears : 0; ?>
+                <td><?=$numberOfPears; ?>
                 </td>
             </tr>
             <tr>
                 <td><a href="exercice-panier.php?action=add&fruit=banana">Une banane</a></td>
                 <td><a href="exercice-panier.php?action=delete&fruit=banana">Une banane</a></td>
                 <td><a href="exercice-panier.php?action=clear&fruit=banana">Toutes les bananes</a></td>
-                <td><?=isset($numbreOfBananas) ? $numbreOfBananas : 0; ?>
+                <td><?=$numbreOfBananas; ?>
                 </td>
             </tr>
             <tr>
-                <td><a href="#">Vider le panier</a></td>
+                <td><a href="exercice-panier.php?action=clearcart">Vider le panier</a></td>
             </tr>
         </table>
     </form>
