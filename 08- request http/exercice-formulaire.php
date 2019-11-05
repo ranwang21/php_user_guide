@@ -106,7 +106,6 @@ $formFields = [
     ],
 ];
 
-var_dump($_POST['selectMultiple']);
 // echo out attributes
 function writeAttributes($element)
 {
@@ -150,7 +149,7 @@ function validate($fieldName, $fieldValue)
 }
 
 // show text input element
-function showInput($field)
+function showInput($field, $method)
 {
     echo "<div class='form-group'>";
     echo "<label for='".$field['id']."' >".$field['label'].':</label>';
@@ -158,14 +157,16 @@ function showInput($field)
     if ($field['isValid']) {
         echo 'required />';
     }
-    if (!validate($field, $_POST[$field['id']])) {
-        echo 'error!';
+    if ($method === 'POST' && !validate($field['id'], $_POST[$field['id']])) {
+        echo "<div class='invalid-feedback'>";
+        echo $filed['errorMessage'];
+        echo '</div>';
     }
     echo '</div>';
 }
 
 // show select input
-function showSelectInput($field)
+function showSelectInput($field, $method)
 {
     echo "<div class='form-group'>";
     echo "<label for='".$field['id']."'>".$field['label'].'</label>';
@@ -185,31 +186,37 @@ function showSelectInput($field)
         }
     }
     echo '<'.$field['element'].'/>';
-    if (!validate($field, $_POST[$field['id']])) {
-        echo 'error!';
+    if ($method === 'POST' && !validate($field['id'], $_POST[$field['id']])) {
+        echo "<div class='invalid-feedback'>";
+        echo $filed['errorMessage'];
+        echo '</div>';
     }
     echo '</div>';
 }
 
 // show textarea
-function showTextArea($field)
+function showTextArea($field, $method)
 {
     echo "<div class='form-group'>";
     echo "<label for='".$field['id']."'>".$field['label'].'</label>';
     echo '<'.$field['element']." class='form-control' id='".$field['id']."' name='".$field['id']."'>";
     echo '</'.$field['element'].'>';
-    if (!validate($field, $_POST[$field['id']])) {
-        echo 'error!';
+    if ($method === 'POST' && !validate($field['id'], $_POST[$field['id']])) {
+        echo "<div class='invalid-feedback'>";
+        echo $filed['errorMessage'];
+        echo '</div>';
     }
     echo '</div>';
 }
 
 // show radio elemts
-function showRadio($field)
+function showRadio($field, $method)
 {
     echo '<label>'.$field['label'].': </label>';
-    if (!validate($field, $_POST[$field['id']])) {
-        echo 'error!';
+    if ($method === 'POST' && !validate($field['id'], $_POST[$field['id']])) {
+        echo "<div class='invalid-feedback'>";
+        echo $filed['errorMessage'];
+        echo '</div>';
     }
     foreach (RADIOS as $radio) {
         echo "<div class='form-group'>";
@@ -244,16 +251,16 @@ function showRadio($field)
                 foreach ($formFields as $field) {
                     switch ($field['element']) {
                         case 'input':
-                        showInput($field);
+                        showInput($field, $method);
                         break;
                         case 'select':
-                        showSelectInput($field);
+                        showSelectInput($field, $method);
                         break;
                         case 'textarea':
-                        showTextArea($field);
+                        showTextArea($field, $method);
                         break;
                         case 'radio':
-                        showRadio($field);
+                        showRadio($field, $method);
                         break;
                     }
                 }
