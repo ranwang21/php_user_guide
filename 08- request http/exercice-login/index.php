@@ -1,20 +1,14 @@
 <?php
-    const USERNAME = 'abc';
-    const PASSWORD = '123';
+session_start();
 
-    $username = '';
-    $password = '';
+    if (!isset($_SESSION['user'])) {
+        header('Location:./login.php');
+        exit;
+    }
 
     if (isset($_GET['action']) && $_GET['action'] === 'logout') {
         unset($_SESSION['user']);
-    }
-
-    if (isset($_POST['username']) && $_POST['username'] === USERNAME && $_POST['password'] === PASSWORD) {
-        $_SESSION['user'] = $_POST['username'];
-    }
-
-    if (!isset($_SESSION['user'])) {
-        header('location:./login.php');
+        header('Location:./login.php');
         exit;
     }
 
@@ -32,7 +26,7 @@
 
 <body>
     <h1>Page secrete accessible seulement avec authentification</h1>
-    <a href='exercice-login?action=logout'>logout</a>
+    <a href='./index.php?action=logout'>logout</a>
 </body>
 
 </html>
