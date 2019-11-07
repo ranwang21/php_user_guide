@@ -10,7 +10,7 @@ const SUPPORTED_EXTENSIONS = ['jpeg', 'jpg', 'png'];
 
 $message = '';
 
-if (isset($_FILES['file-to-upload'])) {
+if (!empty($_FILES['file-to-upload']['name'])) {
     // get the file
     $file = $_FILES['file-to-upload'];
     // get the uploaded file name
@@ -21,12 +21,20 @@ if (isset($_FILES['file-to-upload'])) {
     if (!in_array($extension, SUPPORTED_EXTENSIONS, true)) {
         $message = 'Error: Le fichier doit etre de type image: jpeg, jpg, png';
     }
-    // define the folder to save the uploaded file and the file's name when being saved
-    $newname = "$fileName.".$extension;
-    $target = './image/'.$newname;
+    // define the folder and file name to save the uploaded file and the file's name when being saved
+    $target = './image/'.$fileName;
     // move the file to image folder
     if (move_uploaded_file($file['tmp_name'], $target)) {
         $message = 'Success!';
+    }
+}
+
+$imagesList = scandir('./image');
+$imagesToShow = [];
+foreach ($imagesList as $fileName) {
+    $fileNameAndExtensionArray = explode('.', $fileName);
+    if (in_array($fileNameAndExtensionArray[1], SUPPORTED_EXTENSIONS, true)) {
+        $imagesToShow[] = $fileName;
     }
 }
 
@@ -36,6 +44,8 @@ if (isset($_FILES['file-to-upload'])) {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Exercice - File upload</title>
     <style>
         #container {
@@ -58,7 +68,7 @@ if (isset($_FILES['file-to-upload'])) {
 </head>
 
 <body>
-    <div id="container">
+    <div class="container">
         <h1>Exercice - File upload</h1>
         <p class="error-message">
             <?= !empty($message) ? $message : ''; ?>
@@ -79,9 +89,14 @@ if (isset($_FILES['file-to-upload'])) {
         <section>
             <h2>Liste de fichier</h2>
             <hr>
-            <div>
-                <!-- TODO: afficher la liste de fichier -->
-            </div>
+            <div class="row text-center text-lg-left">
+
+                <?php
+                    foreach ($imagesToShow as $image) {
+                        echo "<div class='col-lg-3 col-md-4 col-6'>";
+                        echo "<img class='img-fluid img-thumbnail' src='".'./image/'.$image."' alt='image'";
+                    }
+                ?>
         </section>
     </div>
 </body>
